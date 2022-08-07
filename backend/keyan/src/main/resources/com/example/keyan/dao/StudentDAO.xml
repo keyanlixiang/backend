@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.keyan.dao.StudentDAO">
+    <resultMap id="StudentResultMap" type="com.example.keyan.model.Student">
+        <id column="sno" property="sno"/>
+        <result column="sname" property="sname"/>
+        <result column="ssex" property="ssex"/>
+        <result column="sacademy" property="sacademy"/>
+        <result column="smajor" property="smajor"/>
+        <result column="sclasss" property="sclasss"/>
+        <result column="sgrade" property="sgrade"/>
+        <result column="spassword" property="spassword"/>
+        <result column="spicture" property="spicture"/>
+    </resultMap>
+
+    <select id="getStudentBySno" resultMap="StudentResultMap">
+        select * from student where sno=#{sno}
+    </select>
+
+</mapper>
