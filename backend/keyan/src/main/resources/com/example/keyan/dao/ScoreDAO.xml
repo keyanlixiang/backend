@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.keyan.dao.ScoreDAO">
+    <resultMap id="ScoreResultMap" type="com.example.keyan.model.Score">
+        <id column="sno" property="sno"/>
+        <result column="cno" property="cno"/>
+        <result column="score" property="score"/>
+        <result column="grade" property="grade"/>
+        <result column="term" property="term"/>
+    </resultMap>
+
+    <select id="getScore" resultMap="ScoreResultMap">
+        select * from score where sno=#{sno} and cno=#{cno}
+    </select>
+
+</mapper>
