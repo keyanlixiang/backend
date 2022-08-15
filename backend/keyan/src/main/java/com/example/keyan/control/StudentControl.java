@@ -8,6 +8,9 @@ import com.example.keyan.model.Course;
 import com.example.keyan.model.Faculty;
 import com.example.keyan.model.Score;
 import com.example.keyan.model.Student;
+import com.example.keyan.pojo.Result;
+import com.example.keyan.service.FacultyService;
+import com.example.keyan.service.StudentService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,12 @@ public class StudentControl {
 
     @Autowired
     private ScoreDAO scoreDAO;
+
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private FacultyService facultyService;
 
     @RequestMapping("/gets")
     @ResponseBody
@@ -54,5 +63,18 @@ public class StudentControl {
     @ResponseBody
     public Score getScore(@Param("sno")long sno,@Param("cno") long cno){
         return scoreDAO.getScore(sno,cno);
+    }
+
+
+    @RequestMapping("s/login")
+    @ResponseBody
+    public Result<Student> slogin(@Param("sno") long sno,@Param("spassword") String spassword){
+        return studentService.login(sno,spassword);
+    }
+
+    @RequestMapping("t/login")
+    @ResponseBody
+    public Result<Faculty> tlogin(@Param("tno") long tno,@Param("tpassword") String tpassword){
+        return facultyService.login(tno, tpassword);
     }
 }
