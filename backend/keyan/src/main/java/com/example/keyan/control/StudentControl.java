@@ -9,7 +9,6 @@ import com.example.keyan.model.Faculty;
 import com.example.keyan.model.Score;
 import com.example.keyan.model.Student;
 import com.example.keyan.pojo.Result;
-import com.example.keyan.service.FacultyService;
 import com.example.keyan.service.StudentService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +36,7 @@ public class StudentControl {
     @Autowired
     private StudentService studentService;
 
-    @Autowired
-    private FacultyService facultyService;
+
 
     @RequestMapping("/gets")
     @ResponseBody
@@ -66,15 +64,17 @@ public class StudentControl {
     }
 
 
-    @RequestMapping("s/login")
+
+    @RequestMapping("student/login")
     @ResponseBody
     public Result<Student> slogin(@Param("sno") long sno,@Param("spassword") String spassword){
         return studentService.login(sno,spassword);
     }
-
-    @RequestMapping("t/login")
+    @RequestMapping("student/updatePassword")
     @ResponseBody
-    public Result<Faculty> tlogin(@Param("tno") long tno,@Param("tpassword") String tpassword){
-        return facultyService.login(tno, tpassword);
+    public Result<Student> updateSpassword(@Param("sno") long sno,@Param("oldPassword") String oldPassword,@Param("newPassword") String newPassword){
+        return studentService.updatePassword(sno,oldPassword,newPassword);
     }
+
+
 }

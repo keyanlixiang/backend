@@ -35,4 +35,38 @@ public class StudentServiceImpl implements StudentService {
         result.setMessage("登录成功");
         return result;
     }
+
+    @Override
+    public Result<Student> updatePassword(long sno, String oldPassword, String newPassword) {
+        Result<Student> result=new Result<>();
+
+        if(oldPassword.equals(newPassword)){
+            result.setSuccess(false);
+            result.setMessage("新密码与旧密码相同");
+            result.setCode("202");
+            return  result;
+        }
+
+        Student student=studentDAO.getStudentBySno(sno);
+        if(!oldPassword.equals(student.getSpassword())){
+            result.setSuccess(false);
+            result.setCode("203");
+            result.setMessage("原密码输入错误");
+            return result;
+        }
+
+        studentDAO.updateSpassword(sno,newPassword);
+        student=studentDAO.getStudentBySno(sno);
+        if(!newPassword.equals(student.getSpassword())){
+            result.setSuccess(false);
+            result.setMessage("修改密码过程中出现问题");
+            result.setCode("204");
+            return  result;
+        }
+        result.setSuccess(true);
+        result.setCode("200");
+        result.setMessage("密码修改成功");
+        result.setData(student);
+        return result;
+    }
 }

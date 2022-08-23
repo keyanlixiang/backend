@@ -12,4 +12,13 @@ public interface FacultyService {
      * @return
      */
     Result<Faculty> login(long tno,String tpassword);
+
+    /**
+     * 教职工修改密码
+     * @param tno
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    Result<Faculty> updatePassword(long tno,String oldPassword,String newPassword);
 }

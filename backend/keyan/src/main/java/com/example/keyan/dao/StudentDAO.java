@@ -12,4 +12,12 @@ public interface StudentDAO {
      * @return
      */
     Student getStudentBySno(@Param("sno") long sno);
+
+    /**
+     * 修改学生密码
+     * @param sno
+     * @param newPassword
+     * @return
+     */
+    int updateSpassword(@Param("sno") long sno,@Param("newPassword") String newPassword);
 }

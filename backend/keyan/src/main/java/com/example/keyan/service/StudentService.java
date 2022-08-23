@@ -12,4 +12,14 @@ public interface StudentService {
      * @return
      */
     Result<Student> login(long sno,String spassword);
+
+
+    /**
+     * 学生修改密码
+     * @param sno
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    Result<Student> updatePassword(long sno,String oldPassword,String newPassword);
 }

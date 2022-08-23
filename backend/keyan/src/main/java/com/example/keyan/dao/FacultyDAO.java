@@ -12,4 +12,12 @@ public interface FacultyDAO {
      * @return
      */
     Faculty getFacultyByTno(@Param("tno") long tno);
+
+    /**
+     * 修改学生密码
+     * @param tno
+     * @param newPassword
+     * @return
+     */
+    int updateTpassword(@Param("tno") long tno,@Param("newPassword") String newPassword);
 }

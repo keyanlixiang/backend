@@ -16,4 +16,8 @@
         select * from faculty where tno=#{tno}
     </select>
 
+    <update id="updateTpassword">
+        update faculty set tpassword=#{newPassword} where tno=#{tno}
+    </update>
+
 </mapper>

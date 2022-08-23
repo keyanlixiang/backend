@@ -35,4 +35,38 @@ public class FacultyServiceImpl implements FacultyService {
         result.setMessage("登录成功");
         return result;
     }
+
+    @Override
+    public Result<Faculty> updatePassword(long tno, String oldPassword, String newPassword) {
+        Result<Faculty> result=new Result<>();
+
+        if(oldPassword.equals(newPassword)){
+            result.setSuccess(false);
+            result.setMessage("新密码与旧密码相同");
+            result.setCode("202");
+            return  result;
+        }
+
+        Faculty faculty=facultyDAO.getFacultyByTno(tno);
+        if(!oldPassword.equals(faculty.getTpassword())){
+            result.setSuccess(false);
+            result.setMessage("原密码输入错误");
+            result.setCode("203");
+            return  result;
+        }
+
+        facultyDAO.updateTpassword(tno,newPassword);
+        faculty=facultyDAO.getFacultyByTno(tno);
+        if(!newPassword.equals(faculty.getTpassword())){
+            result.setSuccess(false);
+            result.setMessage("修改密码过程中出现问题");
+            result.setCode("204");
+            return  result;
+        }
+        result.setSuccess(true);
+        result.setCode("200");
+        result.setMessage("密码修改成功");
+        result.setData(faculty);
+        return result;
+    }
 }
