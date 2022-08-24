@@ -67,12 +67,12 @@ public class StudentControl {
 
     @RequestMapping("student/login")
     @ResponseBody
-    public Result<Student> slogin(@Param("sno") long sno,@Param("spassword") String spassword){
+    public Result<Student> login(@Param("sno") long sno,@Param("spassword") String spassword){
         return studentService.login(sno,spassword);
     }
     @RequestMapping("student/updatePassword")
     @ResponseBody
-    public Result<Student> updateSpassword(@Param("sno") long sno,@Param("oldPassword") String oldPassword,@Param("newPassword") String newPassword){
+    public Result<Student> updatePassword(@Param("sno") long sno,@Param("oldPassword") String oldPassword,@Param("newPassword") String newPassword){
         return studentService.updatePassword(sno,oldPassword,newPassword);
     }
 

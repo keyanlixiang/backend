@@ -18,14 +18,14 @@ public class FacultyControl {
 
     @RequestMapping("faculty/login")
     @ResponseBody
-    public Result<Faculty> tlogin(@Param("tno") long tno, @Param("tpassword") String tpassword){
+    public Result<Faculty> login(@Param("tno") long tno, @Param("tpassword") String tpassword){
         return facultyService.login(tno, tpassword);
     }
 
 
     @RequestMapping("faculty/updatePassword")
     @ResponseBody
-    public Result<Faculty> updateTpassword(@Param("tno") long tno, @Param("oldPassword") String oldPassword, @Param("newPassword") String newPassword){
+    public Result<Faculty> updatePassword(@Param("tno") long tno, @Param("oldPassword") String oldPassword, @Param("newPassword") String newPassword){
         return facultyService.updatePassword(tno,oldPassword,newPassword);
     }
 
