@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.keyan.dao.MessageDAO">
+
+    <resultMap id="MessageResultMap" type="com.example.keyan.model.Message">
+        <id column="pid" property="pid"/>
+        <result column="pfaculty" property="pfaculty"/>
+        <result column="ptime" property="ptime"/>
+        <result column="pcontext" property="pcontext"/>
+        <result column="annex" property="annex"/>
+    </resultMap>
+    
+    <select id="getMessageByPid" resultMap="MessageResultMap">
+        select * from message where pid=#{pid}
+    </select>
+
+    <select id="getMessageByFaculty" resultMap="MessageResultMap">
+        select * from message where pfaculty=#{tno}
+    </select>
+
+    <insert id="insertMessage">
+        insert into message values (#{pid},#{tno},now(),#{context},#{annex})
+    </insert>
+
+    <delete id="deleteMessage">
+        delete from message where pid=#{pid}
+    </delete>
+
+    <update id="updateMessage">
+        update message set ptime=now(),pcontext=#{newContext},annex=#{newAnnex} where pid=#{pid}
+    </update>
+
+
+
+</mapper>
