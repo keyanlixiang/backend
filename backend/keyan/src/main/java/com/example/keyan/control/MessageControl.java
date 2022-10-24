@@ -1,7 +1,8 @@
 package com.example.keyan.control;
 
-import com.example.keyan.dao.MessageDAO;
 import com.example.keyan.model.Message;
+import com.example.keyan.pojo.Result;
+import com.example.keyan.service.MessageService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,38 +14,40 @@ import java.util.List;
 @Controller
 public class MessageControl {
 
+
     @Autowired
-    private MessageDAO messageDAO;
+    private MessageService messageService;
+
 
     @RequestMapping("message/getByPid")
     @ResponseBody
-    public Message getMessageByPid(@Param("pid") long pid){
-        return messageDAO.getMessageByPid(pid);
+    public Result<Message> getMessageByPid(@Param("pid") long pid){
+        return messageService.getMessageByPid(pid);
     }
 
     @RequestMapping("message/getByTno")
     @ResponseBody
-    public List<Message> getMessageByFaculty(@Param("tno") long tno){
-        return messageDAO.getMessageByFaculty(tno);
+    public Result<List<Message>> getMessageByFaculty(@Param("tno") long tno){
+        return messageService.getMessageByFaculty(tno);
     }
 
     @RequestMapping("message/update")
     @ResponseBody
-    public void updateMessage(@Param("pid") long pid,@Param("newContext") String newContext,@Param("newAnnex") String newAnnex){
-        messageDAO.updateMessage(pid,newContext,newAnnex);
+    public Result<Message> updateMessage(@Param("pid") long pid, @Param("newContext") String newContext, @Param("newAnnex") String newAnnex){
+        return messageService.updateMessage(pid,newContext,newAnnex);
     }
 
 
     @RequestMapping("message/delete")
     @ResponseBody
-    public void deleteMessage(@Param("pid") long pid){
-        messageDAO.deleteMessage(pid);
+    public Result<Message> deleteMessage(@Param("pid") long pid){
+         return messageService.deleteMessage(pid);
     }
 
 
     @RequestMapping("message/insert")
     @ResponseBody
-    public void insertMessage(@Param("pid") long pid,@Param("tno") long tno,@Param("context") String context,@Param("annex") String annex){
-        messageDAO.insertMessage(pid, tno, context, annex);
+    public Result<Message> insertMessage(@Param("pid") long pid,@Param("tno") long tno,@Param("context") String context,@Param("annex") String annex){
+       return messageService.insertMessage(pid, tno, context, annex);
     }
 }
