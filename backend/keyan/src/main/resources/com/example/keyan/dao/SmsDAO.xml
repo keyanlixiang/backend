@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.keyan.tongxun.SmsDAO">
+    <resultMap id="SmsResultMap" type="com.example.keyan.tongxun.Sms">
+        <result column="msgType" property="msgType"/>
+        <result column="fromUserId" property="fromUserId"/>
+        <result column="toUserId" property="toUserId"/>
+        <result column="msgData" property="msgData"/>
+        <result column="mtime" property="time"/>
+    </resultMap>
+
+    <insert id="insertSms" parameterType="com.example.keyan.tongxun.Sms">
+        insert into sms values (#{msgType},#{fromUserId},#{toUserId},#{msgData},#{time})
+    </insert>
+
+    <select id="getAllSms" resultMap="SmsResultMap">
+        select * from sms where toUserId=#{toUserId}
+    </select>
+</mapper>

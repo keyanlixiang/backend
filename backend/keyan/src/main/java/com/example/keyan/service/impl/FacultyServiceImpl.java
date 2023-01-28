@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class FacultyServiceImpl implements FacultyService {
 
     @Autowired
-        private FacultyDAO facultyDAO;
+    private FacultyDAO facultyDAO;
 
     @Override
     public Result<Faculty> login(long tno, String tpassword) {
