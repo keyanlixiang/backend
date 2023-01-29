@@ -2,6 +2,7 @@ package com.example.keyan.tongxun;
 
 
 import com.alibaba.fastjson.JSON;
+import com.example.keyan.dao.MessageDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class WebSocketService {
 
 
     private static OffSmsDAO offSmsDAO;
+    private static MessageDAO messageDAO;
 
     private Session session;
     private String userId;
@@ -30,6 +32,9 @@ public class WebSocketService {
     public void setOffSmsDAO(OffSmsDAO offSmsDAO){
         WebSocketService.offSmsDAO=offSmsDAO;
     }
+
+    @Autowired
+    public void setMessageDAO(MessageDAO messageDAO){WebSocketService.messageDAO=messageDAO;};
 
     /*
      *
@@ -117,6 +122,14 @@ public class WebSocketService {
             sendMessageAll(messageData);
             logger.info("这是一条群发消息：" + JSON.toJSONString(messageData));
         }
+
+        if(messageData.getMsgType()==3){
+            long pid=System.currentTimeMillis();
+            long tno= Long.parseLong(messageData.getFromUserId());
+            messageDAO.insertMessage(pid,tno,messageData.getMsgData(),"");
+            sendMessageAll(messageData);
+            logger.info("这是一条全体通知:"+JSON.toJSONString(messageData));
+        }
     }
 
     /*
@@ -132,6 +145,8 @@ public class WebSocketService {
      * 群发消息
      * */
     public void sendMessageAll(Sms messageData) {
+
+
         for (String key : WebSocketMapUtil.getAllKey()) {
             Session session_map = WebSocketMapUtil.get(key);
             messageData.setToUserId(key);
@@ -142,6 +157,7 @@ public class WebSocketService {
                 //在线发送信息
                 session_map.getAsyncRemote().sendText(JSON.toJSONString(messageData));
             }
+
         }
     }
 
